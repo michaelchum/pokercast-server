@@ -49,8 +49,11 @@ app.get('/api/player/:name', function(req, res){
   res.send(result)
 });
 
+//var last_player;
 app.get('/api/startgame', function(req, res){
 	table.StartGame()
+	big_blind_player = table.game.bets.indexOf(Math.max.apply(Math, table.game.bet)); //getMaxOfArray(table.bet)
+	table.game.next_player = (big_blind_player + 1)  % table.game.bets.length
 	console.log(table.game);
 	res.send(table.game);
 });
@@ -59,18 +62,24 @@ app.get('/api/player/:name/:move', function(req, res){
 	if (req.params.move === 'call') {
 		var result = find_player(table.players, req.params.name);  
 		result.Call()
+		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		result.next_player = table.players[table.game.next_player]
 		res.send(result)
 		//res.send(req.params.name  + 'did a move: ' + req.params.move)
 	}
 	else if (req.params.move === 'check'){
 		var result = find_player(table.players, req.params.name);  
 		result.Check()
+		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		result.next_player = table.players[table.game.next_player]
 		res.send(result)
 	}
 
 	else if (req.params.move === 'fold'){
 		var result = find_player(table.players, req.params.name);  
 		result.Fold()
+		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		result.next_player = table.players[table.game.next_player]
 		res.send(result)
 	}
 });
@@ -79,6 +88,8 @@ app.get('/api/player/:name/:move/:amount', function(req, res){
 	if (req.params.move === 'bet'){
 		var result = find_player(table.players, req.params.name);  
 		result.Bet(req.params.amount)
+		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		result.next_player = table.players[table.game.next_player]
 		res.send(result)
 	}
 });
@@ -125,4 +136,8 @@ function find_player(list_of_players, name) {
   		}
   	}
   	return null
+}
+
+function getMaxOfArray(numArray) {
+    return Math.max.apply(null, numArray);
 }
