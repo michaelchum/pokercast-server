@@ -64,7 +64,8 @@ app.get('/api/player/:name/:move', function(req, res){
 	if (req.params.move === 'call') {
 		var result = find_player(table.players, req.params.name);  
 		result.Call()
-		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		index = (table.game.next_player + 1)  % table.game.bets.length
+		table.game.next_player = index
 		table.game.next_player_name = table.players[index].playerName
 		result.next_player = table.game.next_player
 		result.next_player_name = table.game.next_player_name
@@ -74,7 +75,8 @@ app.get('/api/player/:name/:move', function(req, res){
 	else if (req.params.move === 'check'){
 		var result = find_player(table.players, req.params.name);  
 		result.Check()
-		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		index = (table.game.next_player + 1)  % table.game.bets.length
+		table.game.next_player = index
 		table.game.next_player_name = table.players[index].playerName
 		result.next_player = table.game.next_player
 		result.next_player_name = table.game.next_player_name
@@ -84,7 +86,8 @@ app.get('/api/player/:name/:move', function(req, res){
 	else if (req.params.move === 'fold'){
 		var result = find_player(table.players, req.params.name);  
 		result.Fold()
-		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		index = (table.game.next_player + 1)  % table.game.bets.length
+		table.game.next_player = index
 		table.game.next_player_name = table.players[index].playerName
 		result.next_player = table.game.next_player
 		result.next_player_name = table.game.next_player_name
@@ -96,7 +99,8 @@ app.get('/api/player/:name/:move/:amount', function(req, res){
 	if (req.params.move === 'bet'){
 		var result = find_player(table.players, req.params.name);  
 		result.Bet(req.params.amount)
-		table.game.next_player = (table.game.next_player + 1)  % table.game.bets.length
+		index = (table.game.next_player + 1)  % table.game.bets.length
+		table.game.next_player = index
 		table.game.next_player_name = table.players[index].playerName
 		result.next_player = table.game.next_player
 		result.next_player_name = table.game.next_player_name
@@ -151,4 +155,3 @@ function find_player(list_of_players, name) {
 function getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
 }
-
