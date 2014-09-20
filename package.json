@@ -1,7 +1,6 @@
 {
   "name": "pokercast-server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "express": "^4.9.3",
