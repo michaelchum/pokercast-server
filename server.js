@@ -49,7 +49,6 @@ app.get('/api/player/:name', function(req, res){
   res.send(result)
 });
 
-//var last_player;
 app.get('/api/startgame', function(req, res){
 	table.StartGame()
 	big_blind_player = table.game.bets.indexOf(Math.max.apply(Math, table.game.bets)); //getMaxOfArray(table.bet)
@@ -70,7 +69,6 @@ app.get('/api/player/:name/:move', function(req, res){
 		result.next_player = table.game.next_player
 		result.next_player_name = table.game.next_player_name
 		res.send(result)
-		//res.send(req.params.name  + 'did a move: ' + req.params.move)
 	}
 	else if (req.params.move === 'check'){
 		var result = find_player(table.players, req.params.name);  
