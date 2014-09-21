@@ -51,7 +51,7 @@ app.get('/api/player/:name', function(req, res){
 
 app.get('/api/startgame', function(req, res){
 	table.StartGame()
-	big_blind_player = table.game.bets.indexOf(Math.max.apply(Math, table.game.bets)); //getMaxOfArray(table.bet)
+	big_blind_player = table.game.bets.indexOf(Math.max.apply(Math, table.game.bets)); 
 	console.log(big_blind_player + " " + Math.max.apply(null, table.game.bets))
 	table.game.next_player = (big_blind_player + 1)  % table.game.bets.length
 	index = table.game.next_player
@@ -124,13 +124,6 @@ app.get('/api/newround', function(req, res){
 // });
 
 app.get('/api/winner', function(req, res){
-	//rankHands
-	// players = req.params.players
-	// hands = []
-	// for (player in players) {
-	// 	hands.push(player.hand)
-	// }
-	// best_hand = poker.rankHands(hands)
 	winner = table.getWinners()
 	res.send(winner)
 });
