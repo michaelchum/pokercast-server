@@ -25,7 +25,7 @@ app.get('/api', function(req, res){
 	
 	res.send('Welcome to Node Poker RESTful API');
 });
-
+// Initialize poker table 
 app.get('/api/tabledefault', function(req, res){
 	table = new poker.Table(50,100,2,10,100,1000);
 	//console.log(table);
