@@ -25,7 +25,7 @@ app.get('/api', function(req, res){
 	
 	res.send('Welcome to Node Poker RESTful API');
 });
-
+// Initialize poker table 
 app.get('/api/tabledefault', function(req, res){
 	table = new poker.Table(50,100,2,10,100,1000);
 	//console.log(table);
@@ -49,10 +49,9 @@ app.get('/api/player/:name', function(req, res){
   res.send(result)
 });
 
-//var last_player;
 app.get('/api/startgame', function(req, res){
 	table.StartGame()
-	big_blind_player = table.game.bets.indexOf(Math.max.apply(Math, table.game.bets)); //getMaxOfArray(table.bet)
+	big_blind_player = table.game.bets.indexOf(Math.max.apply(Math, table.game.bets)); 
 	console.log(big_blind_player + " " + Math.max.apply(null, table.game.bets))
 	table.game.next_player = (big_blind_player + 1)  % table.game.bets.length
 	index = table.game.next_player
@@ -70,7 +69,6 @@ app.get('/api/player/:name/:move', function(req, res){
 		result.next_player = table.game.next_player
 		result.next_player_name = table.game.next_player_name
 		res.send(result)
-		//res.send(req.params.name  + 'did a move: ' + req.params.move)
 	}
 	else if (req.params.move === 'check'){
 		var result = find_player(table.players, req.params.name);  
@@ -113,26 +111,7 @@ app.get('/api/newround', function(req, res){
 	res.send(table)
 });
 
-// app.get('/api/evaluatehands/:players', function(req, res){
-// 	//rankHands
-// 	players = req.params.players
-// 	hands = []
-// 	for (player in players) {
-// 		hands.push(player.hand)
-// 	}
-// 	best_hand = poker.rankHands(hands)
-	
-// 	res.send(table)
-// });
-
 app.get('/api/winner', function(req, res){
-	//rankHands
-	// players = req.params.players
-	// hands = []
-	// for (player in players) {
-	// 	hands.push(player.hand)
-	// }
-	// best_hand = poker.rankHands(hands)
 	winner = table.getWinners()
 	res.send(winner)
 });
@@ -152,6 +131,3 @@ function find_player(list_of_players, name) {
   	return null
 }
 
-function getMaxOfArray(numArray) {
-    return Math.max.apply(null, numArray);
-}
