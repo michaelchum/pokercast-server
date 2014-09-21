@@ -111,18 +111,6 @@ app.get('/api/newround', function(req, res){
 	res.send(table)
 });
 
-// app.get('/api/evaluatehands/:players', function(req, res){
-// 	//rankHands
-// 	players = req.params.players
-// 	hands = []
-// 	for (player in players) {
-// 		hands.push(player.hand)
-// 	}
-// 	best_hand = poker.rankHands(hands)
-	
-// 	res.send(table)
-// });
-
 app.get('/api/winner', function(req, res){
 	winner = table.getWinners()
 	res.send(winner)
@@ -141,8 +129,4 @@ function find_player(list_of_players, name) {
   		}
   	}
   	return null
-}
-
-function getMaxOfArray(numArray) {
-    return Math.max.apply(null, numArray);
 }
