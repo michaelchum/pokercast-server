@@ -1,20 +1,22 @@
 // RESTful API for node-poker
 var express = require('express'),
+	cors = require('cors'),
 	app = express(),
 	port = 3000,
 	poker = require('./lib/node-poker'),
 	table;
 
 //CORS middleware
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*'); // NOT SAFE FOR PRODUCTION
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+// var allowCrossDomain = function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*'); // NOT SAFE FOR PRODUCTION
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-    next();
-}
+//     next();
+// }
+// app.use(allowCrossDomain);
 
-app.use(allowCrossDomain);
+app.use(cors());
 
 app.get('/', function(req, res){
 	
